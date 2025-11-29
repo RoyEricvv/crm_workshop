@@ -1,0 +1,10 @@
+id_cliente,nombre,sector,gasto_promedio,riesgo,red_social
+C001,María López,retail,350.5,bajo,instagram
+C002,TechCorp Solutions,tecnología,50000,bajo,linkedin
+C003,RetailHub SPA,retail,25000,medio,instagram
+C004,FinanceWave Ltd,finanzas,75000,bajo,linkedin
+C005,MediaStream Inc,medios,15000,alto,twitter
+C006,HealthPlus Clinics,salud,30000,bajo,facebook
+C007,EduTech Academy,educación,12000,medio,facebook
+C008,GreenEnergy Corp,energía,45000,bajo,linkedin
+

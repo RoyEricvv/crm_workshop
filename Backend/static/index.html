@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente de Campañas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        select, input[type="checkbox"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .logs {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .log-entry {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-left: 3px solid #667eea;
+            padding-left: 15px;
+        }
+        
+        .log-entry.error {
+            border-left-color: #e74c3c;
+            color: #ff6b6b;
+        }
+        
+        .log-entry.success {
+            border-left-color: #2ecc71;
+            color: #51cf66;
+        }
+        
+        .resultados {
+            margin-top: 30px;
+        }
+        
+        .resultado-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s;
+        }
+        
+        .resultado-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .resultado-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .resultado-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .badge-premium { background: #FFD700; color: #333; }
+        .badge-medio { background: #87CEEB; color: #333; }
+        .badge-basico { background: #98FB98; color: #333; }
+        .badge-riesgo { background: #FFB6C1; color: #333; }
+        
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .export-btn {
+            background: #28a745;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+        
+        .export-btn:hover {
+            background: #218838;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Agente de Campañas</h1>
+            <p>Sistema inteligente de segmentación y asignación de campañas</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>Configuración</h2>
+                <div class="form-group">
+                    <label for="cliente-select">Seleccionar Cliente:</label>
+                    <select id="cliente-select">
+                        <option value="">Cargando clientes...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="procesar-todos">
+                        <label for="procesar-todos">Procesar todos los clientes</label>
+                    </div>
+                </div>
+                
+                <button id="ejecutar-btn" onclick="ejecutarAgente()">🚀 Ejecutar Agente</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 15px;">Procesando...</p>
+            </div>
+            
+            <div class="section hidden" id="logs-section">
+                <h2>Logs de Ejecución</h2>
+                <div class="logs" id="logs-container"></div>
+            </div>
+            
+            <div class="section hidden" id="resultados-section">
+                <h2>Resultados</h2>
+                <div id="resultados-container"></div>
+                <div class="export-buttons">
+                    <button class="export-btn" onclick="exportar('json')">📥 Exportar JSON</button>
+                    <button class="export-btn" onclick="exportar('csv')">📥 Exportar CSV</button>
+                    <button class="export-btn" onclick="exportar('html')">📥 Exportar HTML</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = window.location.origin;
+        let resultadosActuales = [];
+        
+        // Cargar clientes al iniciar
+        window.addEventListener('DOMContentLoaded', async () => {
+            await cargarClientes();
+        });
+        
+        async function cargarClientes() {
+            try {
+                const response = await fetch(`${API_BASE}/api/clientes`);
+                const data = await response.json();
+                
+                const select = document.getElementById('cliente-select');
+                select.innerHTML = '<option value="">Seleccione un cliente...</option>';
+                
+                data.clientes.forEach(cliente => {
+                    const option = document.createElement('option');
+                    option.value = cliente.id_cliente;
+                    option.textContent = `${cliente.nombre} (${cliente.id_cliente}) - ${cliente.sector}`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error cargando clientes:', error);
+                agregarLog('Error al cargar clientes', 'error');
+            }
+        }
+        
+        async function ejecutarAgente() {
+            const procesarTodos = document.getElementById('procesar-todos').checked;
+            const clienteSelect = document.getElementById('cliente-select');
+            const idCliente = procesarTodos ? null : clienteSelect.value;
+            
+            if (!procesarTodos && !idCliente) {
+                alert('Por favor seleccione un cliente o marque "Procesar todos"');
+                return;
+            }
+            
+            // Reset UI
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('ejecutar-btn').disabled = true;
+            document.getElementById('logs-section').classList.remove('hidden');
+            document.getElementById('resultados-section').classList.add('hidden');
+            document.getElementById('logs-container').innerHTML = '';
+            resultadosActuales = [];
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/ejecutar`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id_cliente: idCliente,
+                        procesar_todos: procesarTodos
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Mostrar logs
+                if (data.logs && data.logs.length > 0) {
+                    data.logs.forEach(log => {
+                        agregarLog(`${log.estado}: ${log.mensaje}`, 'success');
+                    });
+                }
+                
+                // Mostrar resultado
+                if (data.resultado) {
+                    resultadosActuales = [data.resultado];
+                    mostrarResultados([data.resultado]);
+                }
+                
+                agregarLog(`Estado final: ${data.estado_final}`, 'success');
+                
+            } catch (error) {
+                console.error('Error ejecutando agente:', error);
+                agregarLog(`Error: ${error.message}`, 'error');
+            } finally {
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('ejecutar-btn').disabled = false;
+            }
+        }
+        
+        function agregarLog(mensaje, tipo = 'info') {
+            const logsContainer = document.getElementById('logs-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${tipo}`;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${mensaje}`;
+            logsContainer.appendChild(logEntry);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+        
+        function mostrarResultados(resultados) {
+            const container = document.getElementById('resultados-container');
+            container.innerHTML = '';
+            
+            resultados.forEach(resultado => {
+                const card = document.createElement('div');
+                card.className = 'resultado-card';
+                
+                const segmentoClass = `badge-${resultado.segmento?.split('_')[0] || 'basico'}`;
+                
+                card.innerHTML = `
+                    <div class="resultado-header">
+                        <div class="resultado-title">${resultado.campaña?.nombre || 'N/A'}</div>
+                        <span class="badge ${segmentoClass}">${resultado.segmento || 'N/A'}</span>
+                    </div>
+                    <p><strong>Cliente:</strong> ${resultado.nombre || resultado.id_cliente}</p>
+                    <p><strong>Campaña ID:</strong> ${resultado.campaña?.id_campaña || 'N/A'}</p>
+                    <p><strong>Canal:</strong> ${resultado.campaña?.canal || 'N/A'}</p>
+                    <p><strong>CTA:</strong> ${resultado.campaña?.cta || 'N/A'}</p>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            document.getElementById('resultados-section').classList.remove('hidden');
+        }
+        
+        async function exportar(formato) {
+            if (resultadosActuales.length === 0) {
+                alert('No hay resultados para exportar');
+                return;
+            }
+            
+            try {
+                // En una implementación completa, esto llamaría al endpoint de exportación
+                const dataStr = JSON.stringify(resultadosActuales, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `resultados.${formato}`;
+                link.click();
+            } catch (error) {
+                console.error('Error exportando:', error);
+                alert('Error al exportar');
+            }
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: crm-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./app:/app/app  # Hot reload en desarrollo
+    environment:
+      - CLIENTES_CSV_PATH=/app/data/clientes.csv
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - USE_GENAI=${USE_GENAI:-false}
+      - PORT=8000
+      - FRONTEND_URL=http://localhost:3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - crm-network
+
+networks:
+  crm-network:
+    driver: bridge
+

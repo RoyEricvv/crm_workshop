@@ -1,0 +1,12 @@
+id_cliente,nombre,sector,gasto_promedio,riesgo,red_social
+C001,María López,retail,450.5,medio,instagram
+C002,Juan Pérez,tech,750.0,bajo,linkedin
+C003,Ana García,salud,320.0,medio,facebook
+C004,Carlos Rodríguez,educación,180.0,bajo,twitter
+C005,Laura Martínez,gastronomía,550.0,bajo,instagram
+C006,Pedro Sánchez,retail,280.0,medio,facebook
+C007,Sofía Hernández,tech,920.0,bajo,linkedin
+C008,Diego Torres,salud,150.0,alto,instagram
+C009,Isabella Ramírez,educación,420.0,medio,twitter
+C010,Miguel González,gastronomía,380.0,bajo,facebook
+

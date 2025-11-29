@@ -1,0 +1,247 @@
+# ====================================
+# CRM Workshop - GitIgnore Completo
+# ====================================
+
+# ============ NEXT.JS / REACT ============
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Production (aplica a cualquier nivel)
+build/
+.next/
+out/
+
+# Cache
+.cache/
+.parcel-cache/
+
+# Next.js cache
+.vercel/
+
+# ============ VARIABLES DE ENTORNO ============
+# IMPORTANTE: NO subir secrets ni API keys
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+.env.development
+.env.production
+.envrc
+
+# ============ PYTHON / BACKEND ============
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.Python
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Django / Flask
+instance/
+.webassets-cache
+db.sqlite3
+db.sqlite3-journal
+
+# FastAPI / Uvicorn
+*.db
+*.sqlite
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# pyenv
+.python-version
+
+# Pipenv
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# ============ LOGS ============
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============ TESTING ============
+coverage/
+*.lcov
+.nyc_output
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+nosetests.xml
+test-results/
+playwright-report/
+
+# ============ IDEs y EDITORES ============
+# VSCode / Cursor
+.vscode/
+.cursor/
+*.code-workspace
+
+# JetBrains (PyCharm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ============ SISTEMA OPERATIVO ============
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+
+# ============ PACKAGE MANAGERS ============
+# npm
+npm-debug.log
+.npm/
+
+# yarn
+yarn-error.log
+.yarn-integrity
+.pnp.*
+
+# pnpm
+.pnpm-debug.log
+
+# Lock files - DESCOMENTA el que NO uses:
+# Si usas npm, descomenta esta línea:
+# pnpm-lock.yaml
+# Si usas pnpm, descomenta esta línea:
+# package-lock.json
+# Si usas yarn, descomenta estas líneas:
+# package-lock.json
+# pnpm-lock.yaml
+
+# ============ TYPESCRIPT ============
+*.tsbuildinfo
+.tsbuildinfo
+*.js.map
+*.d.ts.map
+
+# ============ DATOS SENSIBLES ============
+# CSV con datos reales (NO mockear con datos personales)
+# data/clientes_reales.csv
+# Si tienes CSVs con datos sensibles, agrégalos aquí
+
+# Claves SSH
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+
+# Certificados
+*.crt
+*.cer
+*.p12
+
+# ============ ARCHIVOS TEMPORALES ============
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# Backups
+backup/
+backups/
+*.backup
+
+# ============ BUILD & DEPLOYMENT ============
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# ============ EXPORTACIONES & OUTPUTS ============
+# Archivos generados por el agente (solo en carpetas específicas)
+exports/
+output/
+generated/
+downloads/
+# Archivos exportados por el agente (con prefijo específico)
+campaña_*.html
+campaña_*.csv
+campaña_*.json
+# NOTA: No ignoramos todos los .html/.csv/.json porque hay archivos de configuración importantes
+
+# Archivos de configuración local
+.eslintcache
+.stylelintcache
+
+# Turbo
+.turbo
+
+# Sentry
+.sentryclirc
+
